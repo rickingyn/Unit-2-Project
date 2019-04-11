@@ -37,11 +37,22 @@ const itemsPerPage = 10;
        that will be passed into the parens later when you call or 
        "invoke" the function 
 ***/
-function showPage() {
-  
+function showPage(list, page) {
+  // create variable to store dynamic start index and end index 
+  const startIndex = (page * itemsPerPage) - itemsPerPage;
+  const endIndex = page * itemsPerPage;
+
+  // loop through item list passed in first parameter
+  for(let i = 0; i < list.length; i++) {
+    // conditional statement to show list item only if it is between the index
+    if(i >= startIndex && i <= endIndex) {
+      console.log(list[i]);
+      list[i].style.display = 'list-item';
+    } else {
+      list[i].style.display = 'none';
+    }
+  }
 }
-
-
 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
