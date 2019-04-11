@@ -40,13 +40,12 @@ const itemsPerPage = 10;
 function showPage(list, page) {
   // create variable to store dynamic start index and end index 
   const startIndex = (page * itemsPerPage) - itemsPerPage;
-  const endIndex = page * itemsPerPage;
+  const endIndex = (page * itemsPerPage) - 1;
 
   // loop through item list passed in first parameter
   for(let i = 0; i < list.length; i++) {
     // conditional statement to show list item only if it is between the index
     if(i >= startIndex && i <= endIndex) {
-      console.log(list[i]);
       list[i].style.display = 'list-item';
     } else {
       list[i].style.display = 'none';
@@ -58,9 +57,76 @@ function showPage(list, page) {
    Create the `appendPageLinks function` to generate, append, and add 
    functionality to the pagination buttons.
 ***/
+function appendPageLinks(list) {
+  // create const to dynamically calculate the number of pages
+  const numOfPages = list.length / itemsPerPage;
+  // select div with class name 'page'
+  const page = document.querySelector('.page');
 
+  // function to create Li element for each page
+  function createLi(numOfPages) {
+    // loop through number of pages
+    for(let i = 1; i <= numOfPages; i++) {
+      // create 'li' element for each page
+      const li = document.createElement('li');
+      // append 'li' element to 'ul' element
+      ul.appendChild(li);
 
+      // create 'a' element for each 'li' element
+      const a = document.createElement('a');
+      // add 'href' attribute
+      a.href = '#';
+      // set text content to page number
+      a.textContent = `${i}`;
+      // append 'a' element to 'li' element
+      li.appendChild(a);
+    }
+  }
 
+  // create elements and append to parent node
+  const pagination = document.createElement('div');
+  page.className = 'pagination';
+  page.appendChild(pagination);
+  const ul = document.createElement('ul');
+  pagination.appendChild(ul);
+
+  // call the createLi function to create 'li' elements based on the number of pages
+  createLi(numOfPages);
+
+  // select the first 'a' element and assign 'active' class
+  const firstPage = document.querySelector('li a');
+  firstPage.className = 'active';
+
+  // add click event listener to 'ul' element to select link (event bubbling)
+  ul.addEventListener('click', (e) => {
+    // select collection of 'a' elements
+    const a = document.querySelectorAll('a');
+
+    // store clicked object into const
+    const clicked = e.target;
+
+    // check if clicked item is an 'a' element
+    if(clicked.tagName === 'A') {
+      // loop through collection of 'a' elements 
+      for(let i = 0; i < a.length; i++) {
+        // remove class name for all 'a' elements
+        a[i].className = '';
+      }
+    // add class 'active' to 'a' element tht was clicked
+    clicked.className = 'active';
+    }
+
+    // store page number from clicked element and convert into integer
+    const pageNumber = parseInt(clicked.textContent);
+
+    // call showPage function
+    showPage(listItem, pageNumber);
+  });
+
+}
+
+// call appendPageLinks function with students list as parameter
+appendPageLinks(listItem);
 
 
 // Remember to delete the comments that came with this file, and replace them with your own code comments.
