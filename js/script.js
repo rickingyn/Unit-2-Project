@@ -104,7 +104,7 @@ function createSearchComponent() {
   searchBtn.textContent = 'Search';
   searchDiv.appendChild(searchBtn);
 
-  // append search component to page header
+  // append search component to page header1
   document.querySelector('.page-header').appendChild(searchDiv);
 }
 
@@ -116,9 +116,9 @@ function search() {
   const searchInput = document.querySelector('.student-search input').value;
 
   // loop through each student name
-  // conditional statement to hide student items if it does not match search input value
+  // conditional statement to hide student items if input value is not contained inside student name; indexOf() returns -1 if no matches
   for(let i = 0; i < searchStudent.length; i++) {
-    if(searchStudent[i].textContent === searchInput) {
+    if(searchStudent[i].textContent.indexOf(searchInput) > -1) {
       listItem[i].style.display = 'list-item';
     } else {
       listItem[i].style.display = 'none';
@@ -129,9 +129,17 @@ function search() {
 // call createSearchComponent function
 createSearchComponent();
 
-// addEventListener for the search button added to the page
+// add event listener for the search button added to the page
 (document.querySelector(".student-search button")).addEventListener('click', (event) => {
   search();
+});
+
+// add event listener to search div; using event bubbling to target input
+// call search() function if keyup event is triggered on input
+(document.querySelector(".student-search")).addEventListener('keyup', (event) => {
+  if(event.target.tagName === 'INPUT') {
+    search();
+  }
 });
 
 // call appendPageLinks function with students list as parameter
