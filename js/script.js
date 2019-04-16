@@ -131,9 +131,18 @@ function search() {
     }
    } 
 
-  // select pagination and parent node
+  // select elements; pagination and parent node, and noResults message
   const page = document.querySelector('.page');
   const pagination = document.querySelector('.pagination');
+  const message = document.querySelector('.noResults');
+
+  // create 'No Results' message if it does not exist
+  if(!message) {
+    const message = document.createElement('p');
+    message.className = 'noResults'
+    message.textContent = 'No results';
+    page.append(message);
+  } 
 
   // remove pagination div only if it exist
   if(pagination) {
@@ -143,6 +152,14 @@ function search() {
   // call appendPageLinks function to re-add pagination with filtered list
   if(filteredStudentList.length > 0) {
     appendPageLinks(filteredStudentList);
+
+    // hide 'No Results' message if filered list is not empty
+    if(message) {
+      message.style.display = 'none';
+    }
+  } else {
+      // hide 'No Results' message if filtered list is empty
+      message.style.display = 'block';
   }
 }
 
