@@ -52,7 +52,7 @@ function appendPageLinks(list) {
 
   // create DOM elements and append to parent node
   const pagination = document.createElement("div");
-  page.className = "pagination";
+  pagination.className = "pagination";
   page.appendChild(pagination);
   const ul = document.createElement("ul");
   pagination.appendChild(ul);
@@ -71,7 +71,7 @@ function appendPageLinks(list) {
     // store clicked object into const
     const clicked = e.target;
 
-    // if a element is clicked, loop through all a elements and remove class
+    // if a element is clicked, loop through all a elements and 1 class
     if (clicked.tagName === "A") {
       for (let i = 0; i < a.length; i++) {
         a[i].className = "";
@@ -115,15 +115,28 @@ function search() {
   // select value from search input field
   const searchInput = document.querySelector('.student-search input').value;
 
+  // create empty array to store filtered student items
+  let filteredStudentList = [];
+
   // loop through each student name
   // conditional statement to hide student items if input value is not contained inside student name; indexOf() returns -1 if no matches
   for(let i = 0; i < searchStudent.length; i++) {
     if(searchStudent[i].textContent.indexOf(searchInput) > -1) {
       listItem[i].style.display = 'list-item';
+
+      // add filtered student item to filtered array list
+      filteredStudentList.push(listItem[i]);
     } else {
       listItem[i].style.display = 'none';
     }
   }
+
+  // select pagination and parent node
+  // remove pagination and call function to create new pagination based on filtered list
+  const page = document.querySelector('.page');
+  const pagination = document.querySelector('.pagination');
+  page.removeChild(pagination);
+  appendPageLinks(filteredStudentList);
 }
 
 // call createSearchComponent function
@@ -144,3 +157,4 @@ createSearchComponent();
 
 // call appendPageLinks function with students list as parameter
 appendPageLinks(listItem);
+
