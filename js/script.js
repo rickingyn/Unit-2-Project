@@ -129,14 +129,21 @@ function search() {
     } else {
       listItem[i].style.display = 'none';
     }
-  }
+   } 
 
   // select pagination and parent node
-  // remove pagination and call function to create new pagination based on filtered list
   const page = document.querySelector('.page');
   const pagination = document.querySelector('.pagination');
-  page.removeChild(pagination);
-  appendPageLinks(filteredStudentList);
+
+  // remove pagination div only if it exist
+  if(pagination) {
+    page.removeChild(pagination);
+  }
+  
+  // call appendPageLinks function to re-add pagination with filtered list
+  if(filteredStudentList.length > 0) {
+    appendPageLinks(filteredStudentList);
+  }
 }
 
 // call createSearchComponent function
