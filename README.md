@@ -9,3 +9,8 @@ Task:
 	- Can display students' names without JavaScript turned on, but will be better with JavaScript turned on.
 - Web application should be flexible (handle any list of any number of students)
 
+Extra Credit Features Added:
+- Added search component
+- Added functionality to the search component
+- Paginate search results
+- Handle no results returned
