@@ -165,6 +165,9 @@ const search = () => {
 // call createSearchComponent function
 createSearchComponent();
 
+// call showPage function on load
+window.addEventListener('load', showPage(listItem, 1));
+
 // add event listener for the search button added to the page
 document
   .querySelector(".student-search button")
